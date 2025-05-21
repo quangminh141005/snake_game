@@ -24,7 +24,7 @@ public class SnakeGame extends JPanel {
 
     // Snake
     Tile snakeHead;
-    Ramdom random;
+    Random random;
 
     SnakeGame(int BoardWidth, int BoardHeight) { // Creating a panel for the window
         this.BoardWidth = BoardWidth;
@@ -37,7 +37,7 @@ public class SnakeGame extends JPanel {
         food = new Tile(10, 10);
 
         random = new Random();
-        placefood();
+        placeFood();
     }
 
     public void paintComponent(Graphics g) {
@@ -64,6 +64,6 @@ public class SnakeGame extends JPanel {
 
     public void placeFood() {
         food.x = random.nextInt(BoardWidth/tileSize); // 600/25 = 24 (pixel)
-        food.y = random.netInt(BoardHeight/tileSize);
+        food.y = random.nextInt(BoardHeight/tileSize);
     }
 }
