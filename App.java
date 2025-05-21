@@ -18,5 +18,6 @@ public class App {
         SnakeGame snakeGame = new SnakeGame(BoardWidth, BoardHeight);
         frame.add(snakeGame);   
         frame.pack(); //Does not include the title of the window included in the size
+        snakeGame.requestFocus(); // Just the snake game listen to the key press
     }
 }

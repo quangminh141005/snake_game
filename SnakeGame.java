@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
 
-public class SnakeGame extends JPanel implements ActionListener{
+public class SnakeGame extends JPanel implements ActionListener, KeyListener{
 
     private class Tile {
         int x; 
@@ -28,12 +28,16 @@ public class SnakeGame extends JPanel implements ActionListener{
 
     // Game logic
     Timer gameLoop;
+    int velocityX;
+    int velocityY;
 
     SnakeGame(int BoardWidth, int BoardHeight) { // Creating a panel for the window
         this.BoardWidth = BoardWidth;
         this.BoardHeight = BoardHeight;
         setPreferredSize(new Dimension(this.BoardWidth, this.BoardHeight));
         setBackground(Color.black);
+        addKeyListener(this);
+        setFocusable(true);
 
         snakeHead = new Tile(5,5);
 
@@ -41,6 +45,9 @@ public class SnakeGame extends JPanel implements ActionListener{
 
         random = new Random();
         placeFood();
+
+        velocityX = 0;
+        velocityY = 0;
     
         gameLoop = new Timer(100, this);
         gameLoop.start();
@@ -74,8 +81,45 @@ public class SnakeGame extends JPanel implements ActionListener{
         food.y = random.nextInt(BoardHeight/tileSize);
     }
 
+    public void move() {
+        // Snake Head
+        snakeHead.x += velocityX;
+        snakeHead.y += velocityY;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        move();
         repaint();
     }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            velocityX = 0;
+            velocityY = -1;
+        } 
+        else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            velocityX = 0;
+            velocityY = 1;
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            velocityX = -1;
+            velocityY = 0;
+        } 
+        else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            velocityX = 1;
+            velocityY = 0;
+        }
+    }
+
+    // Dont need
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
 }
